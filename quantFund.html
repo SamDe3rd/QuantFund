@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- FOR app view -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quant Tracker</title>
+</head>
+
+<body>
+
+    <div>
+        <h1>RENAISSANCE TECHNOLOGY</h1>
+
+        <!-- 1. Balance -->
+        <h2>Earned quantity</h2>
+        <p id="balance">MYR 0.00</p>
+
+        <!-- 2. Deposit -->
+        <div class="deposit">
+            <h2>New deposit</h2>
+            <input type="number" id="entry-amount" placeholder="Entry amount" />
+            <input type="text" id="entry-reason" placeholder="Entry Reason" />
+            <button id="add-btn" onClick="addEntry('add')">+ Add</button>
+            <button id="minus-btn" onClick="addEntry('minus')">- Deduct</button>
+        </div>
+
+        <!-- 3. History -->
+        <div id="entry-list">
+            <h2>History</h2>
+            <p>No entries yet :p</p>
+        </div>
+
+    </div>
+
+    <script src="quantFund.js"></script>
+
+</body>
+
+</html>
