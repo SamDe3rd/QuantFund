@@ -42,3 +42,20 @@ function displayEntries() {
     })
 
 }
+
+const saved = localStorage.getItem("entries")
+
+if (saved) {
+    entries = JSON.parse(saved);
+    calculateBalanceDuringFirstLoad();
+    displayEntries();
+}
+
+function calculateBalanceDuringFirstLoad() {
+
+    entries.forEach((entry) => {
+        balance = entry.type === "add" ? balance + entry.amount : balance - entry.amount;
+    })
+
+    document.getElementById("balance").textContent = "MYR " + balance;
+}
