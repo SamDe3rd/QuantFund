@@ -1,12 +1,42 @@
 let entries = [];
 let balance = 0;
 
-function addEntry(entryType) {
-    // 1. get variables
-    const entryAmount = document.getElementById("entry-amount").value;
-    const entryNote = document.getElementById("entry-reason").value;
 
+//---------------------------------
+// METHODS
+//---------------------------------
+function addEntry(entryType) {
+    let entryAmount, entryNote;
+
+    if(entryType === 'addDefault') {
+        entryAmount = 50;
+        const accomplishmentText = prompt("Please enter accomplisment for the day");
+
+        if(accomplishmentText === null) {
+            return;
+        } else if(accomplishmentText.trim() === "") {
+            alert("Using default 3 accomplisments. Good job!");
+            entryNote = "Achieved daily target (1-  Punctual, 2- Study, 3- Do something extra)"
+        } else {
+            entryNote = accomplishmentText;
+        }
+    } else {
+        // **********************
+        // 1. get variables
+        // **********************
+        entryAmount = document.getElementById("entry-amount").value;
+        entryNote = document.getElementById("entry-reason").value;
+    }
+
+    const isPositiveEntry = entryType.includes('add');
+    if(isPositiveEntry) {
+        celebrate();
+    }
+    
+
+    // **********************
     // 2. store values in localStorage
+    // **********************
     const entryValue = Number(entryAmount)
 
     entries.push({
@@ -18,8 +48,10 @@ function addEntry(entryType) {
     localStorage.setItem("entries", JSON.stringify(entries));
     console.log(entries)
 
+    // **********************
     // 3. calculate and update balance
-    balance = entryType === 'add' ? balance + entryValue : balance - entryValue;
+    // **********************
+    balance = isPositiveEntry ? balance + entryValue : balance - entryValue;
     document.getElementById("balance").textContent = "MYR " + balance;
 
     displayEntries();
@@ -34,21 +66,16 @@ function displayEntries() {
     // 2. fill in entries array
     entries.forEach((entry, index) => {
         const item = document.createElement("p");
-        const entryType = entry.type === "add" ? "+" : "-";
-        item.style.color = entry.type === "add" ? "green" : "red";
+
+        const entryTypeIsPositive = entry.type.includes('add');
+
+        const entryType = entryTypeIsPositive ? "+" : "-";
+        item.style.color = entryTypeIsPositive ? "green" : "red";
 
         item.textContent = "#" + (index + 1) + " | " + entryType + " MYR " + entry.amount + " | " + entry.note
         entryList.appendChild(item)
     })
 
-}
-
-const saved = localStorage.getItem("entries")
-
-if (saved) {
-    entries = JSON.parse(saved);
-    calculateBalanceDuringFirstLoad();
-    displayEntries();
 }
 
 function calculateBalanceDuringFirstLoad() {
@@ -58,4 +85,26 @@ function calculateBalanceDuringFirstLoad() {
     })
 
     document.getElementById("balance").textContent = "MYR " + balance;
+}
+
+//---------------------------------
+// render stuff
+//---------------------------------
+const saved = localStorage.getItem("entries")
+
+if (saved) {
+    entries = JSON.parse(saved);
+    calculateBalanceDuringFirstLoad();
+    displayEntries();
+}
+
+//---------------------------------
+// FUN STUFF
+//---------------------------------
+function celebrate() {
+  confetti({
+  particleCount: 100,  // how many confetti pieces to generate
+  spread: 70,           // angle in degrees — how wide the burst fans out
+  origin: { y: 0.6 }    // where on screen it starts (0.6 = 60% down from the top)
+  });
 }
