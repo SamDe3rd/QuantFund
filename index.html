@@ -11,7 +11,7 @@
 <body>
 
     <div>
-        <h1>RENAISSANCE TECHNOLOGY</h1>
+        <h1 style="color: #ee0808;">RENAISSANCE TECHNOLOGY</h1>
 
         <!-- 1. Balance -->
         <h2>Earned quantity</h2>
@@ -24,6 +24,7 @@
             <input type="text" id="entry-reason" placeholder="Entry Reason" />
             <button id="add-btn" onClick="addEntry('add')">+ Add</button>
             <button id="minus-btn" onClick="addEntry('minus')">- Deduct</button>
+            <button id ="default-btn" onClick="addEntry('addDefault')"> Default (Achieve daily targets)</button>
         </div>
 
         <!-- 3. History -->
@@ -34,6 +35,7 @@
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     <script src="quantFund.js"></script>
 
 </body>
