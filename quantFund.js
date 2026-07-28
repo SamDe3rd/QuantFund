@@ -81,7 +81,8 @@ function displayEntries() {
 function calculateBalanceDuringFirstLoad() {
 
     entries.forEach((entry) => {
-        balance = entry.type === "add" ? balance + entry.amount : balance - entry.amount;
+        const entryTypeIsPositive = entry.type.includes('add');
+        balance = entryTypeIsPositive ? balance + entry.amount : balance - entry.amount;
     })
 
     document.getElementById("balance").textContent = "MYR " + balance;
